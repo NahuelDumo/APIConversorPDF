@@ -51,10 +51,10 @@ async def capturar_paginas_y_generar_pdf(html_path, output_pdf_path, page_ids):
         if os.path.exists(img_path):
             os.remove(img_path)
 
-# Uso
-html_input = "C:/Users/nahue/Downloads/Nº02004_presupuesto (3).html"
-pdf_output = "C:/Users/nahue/Downloads/presupuesto_paginas_individuales_alta_calidad.pdf"
+# ✅ Solo se ejecuta si corres este archivo directamente
+if __name__ == "__main__":
+    html_input = "C:/Users/nahue/Downloads/Nº02004_presupuesto (3).html"
+    pdf_output = "C:/Users/nahue/Downloads/presupuesto_paginas_individuales_alta_calidad.pdf"
+    page_ids = ["pf1", "pf2", "pf3"]  # IDs de tus páginas
 
-page_ids = ["pf1", "pf2", "pf3"]  # ids de tus páginas
-
-asyncio.run(capturar_paginas_y_generar_pdf(html_input, pdf_output, page_ids))
+    asyncio.run(capturar_paginas_y_generar_pdf(html_input, pdf_output, page_ids))
