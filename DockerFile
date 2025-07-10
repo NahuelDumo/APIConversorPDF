@@ -1,21 +1,33 @@
-# Usamos la imagen oficial de Playwright con Ubuntu y navegadores preinstalados
-FROM mcr.microsoft.com/playwright:focal
+# Imagen base de Python
+FROM python:3.10-slim
 
-# Directorio de trabajo dentro del contenedor
+# Variables de entorno para evitar errores con debconf
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Instalamos dependencias del sistema necesarias para Playwright
+RUN apt-get update && apt-get install -y \
+    wget gnupg unzip curl \
+    libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxkbcommon0 libgtk-3-0 \
+    libasound2 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libxshmfence1 \
+    libpango-1.0-0 libpangocairo-1.0-0 libcairo2 libdrm2 libx11-xcb1 \
+    libxext6 libxfixes3 libxrender1 libxcb1 libx11-6 libglib2.0-0 \
+    libfontconfig1 libfreetype6 fonts-liberation libappindicator3-1 \
+    && apt-get clean
+
+# Directorio de trabajo
 WORKDIR /app
 
-# Copiamos el archivo de dependencias y el código
+# Copiamos archivos
 COPY requirements.txt .
 COPY . .
 
-# Instalamos las dependencias Python
+# Instalamos las dependencias Python y Playwright
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN playwright install --with-deps
 
-# (Opcional) Si necesitás instalar algo extra de sistema, podés hacerlo aquí con apt-get
-
-# Puerto expuesto
+# Exponer puerto
 EXPOSE 8000
 
-# Comando para iniciar la app
+# Comando de inicio
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
