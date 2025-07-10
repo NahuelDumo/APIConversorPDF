@@ -30,5 +30,4 @@ RUN playwright install --with-deps
 EXPOSE 8000
 
 # Comando de inicio
-# Comando para iniciar la app
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
