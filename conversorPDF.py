@@ -12,7 +12,7 @@ async def capturar_paginas_y_generar_pdf(html_path, output_pdf_path, page_ids):
     async with async_playwright() as p:
         browser = await p.chromium.launch()
         context = await browser.new_context(
-            viewport={"width": 1920, "height": 1080},
+            viewport={"width": 1686, "height": 1205},
             device_scale_factor=4  # Doble resolución para capturas más nítidas
         )
         page = await context.new_page()
@@ -53,7 +53,7 @@ async def capturar_paginas_y_generar_pdf(html_path, output_pdf_path, page_ids):
 
 # ✅ Solo se ejecuta si corres este archivo directamente
 if __name__ == "__main__":
-    html_input = "C:/Users/nahue/Downloads/Nº02004_presupuesto (3).html"
+    html_input = "C:/Users/nahue/Downloads/Nº02008_presupuesto.html"
     pdf_output = "C:/Users/nahue/Downloads/presupuesto_paginas_individuales_alta_calidad.pdf"
     page_ids = ["pf1", "pf2", "pf3"]  # IDs de tus páginas
 
